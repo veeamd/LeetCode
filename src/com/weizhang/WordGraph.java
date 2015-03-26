@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * Created by veeamd on 3/23/15.
+ * Created by Wei Zhang on 3/23/15.
  */
 public class WordGraph {
     private LinkedList<Integer>[] adjacents; //

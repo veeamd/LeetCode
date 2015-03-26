@@ -1,7 +1,7 @@
 package com.weizhang;
 
 /**
- * Created by veeamd on 3/21/15.
+ * Created by Wei Zhang on 3/21/15.
  */
 
 public class ListNode {
