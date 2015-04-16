@@ -975,16 +975,7 @@ public class Main {
         return newList;
     }
 
-    public static ListNode createListNodeList(int...elements) {
-        ListNode head = new ListNode(0);
-        ListNode pointer = head;
-        for (int el : elements) {
-            pointer.next = new ListNode(el);
-            pointer = pointer.next;
-        }
 
-        return head.next;
-    }
 
     public List<String> letterCombinations(String digits) {
         if (digits == null) return null;

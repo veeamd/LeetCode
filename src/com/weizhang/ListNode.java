@@ -11,4 +11,15 @@ public class ListNode {
         val = x;
         next = null;
     }
+
+    public static ListNode createListNodeList(int...elements) {
+        ListNode head = new ListNode(0);
+        ListNode pointer = head;
+        for (int el : elements) {
+            pointer.next = new ListNode(el);
+            pointer = pointer.next;
+        }
+
+        return head.next;
+    }
 }
