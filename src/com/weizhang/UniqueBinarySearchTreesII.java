@@ -20,6 +20,28 @@ import java.util.List;
  */
 public class UniqueBinarySearchTreesII {
     public List<TreeNode> generateTrees(int n) {
-        return new ArrayList<TreeNode>();
+        return generateSubtrees(1, n);
+    }
+
+    private List<TreeNode> generateSubtrees(int lo, int hi) {
+        List<TreeNode> subtrees = new ArrayList<TreeNode>();
+        if (lo > hi) {
+            subtrees.add(null);  // ArrayList allow insert null into it. Amazingly, by using this feature, greatly simplify the code.
+            return subtrees;
+        }
+
+        for (int i = lo; i <= hi; i++) {
+            List<TreeNode> leftSubtrees = generateSubtrees(lo, i-1);
+            List<TreeNode> rightSubtrees = generateSubtrees(i+1, hi);
+            for (TreeNode left : leftSubtrees) {
+                for (TreeNode right : rightSubtrees) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = left;
+                    root.right = right;
+                    subtrees.add(root);
+                }
+            }
+        }
+        return subtrees;
     }
 }
