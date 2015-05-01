@@ -5,7 +5,7 @@ package com.weizhang;
  */
 
 public class ListNode {
-    private int val;
+    int val;
     ListNode next;
     ListNode(int x) {
         val = x;
