@@ -1,5 +1,7 @@
 package com.weizhang;
 
+import java.util.Arrays;
+
 /**
  * Created by Wei Zhang on 4/30/15.
  *
@@ -35,23 +37,42 @@ public class NextPermutation {
         if (m == -1) {
             // special case: 3, 2 ,1
             int lo = 0; int hi = num.length - 1;
-            while (lo < hi) {
-                int t = num[hi];
-                num[hi] = num[lo];
-                num[lo] = t;
-                lo++; hi--;
-            }
+            reverse(num, lo, hi);
         } else {
-            // find n, what's here is wrong. find next smallest after m.
-            int n = num.length - 1;
-            // bubble last number up to index m.
-            while (n > m) {
-                int t = num[n];
-                num[n] = num[n-1];
-                num[n-1] = t;
-                n--;
-            }
+            int n = findNextSmallestStartAtIndexM(num, m);
+            exchange(num, n, m);
+
+            // after 1, 3, 4, 2 => 1, 4, 3, 2; this need one more transform to 1, 4, 2, 3. this should be the next permutation
+            // so sort the subarray from m+1
+            Arrays.sort(num, m+1, num.length);
         }
+    }
+
+    public void reverse(int[] num, int lo, int hi) {
+        while (lo < hi) {
+            exchange(num, lo, hi);
+            lo++; hi--;
+        }
+    }
+
+    public int findNextSmallestStartAtIndexM(int[] num, int m) {
+        int i = m + 1;
+        int min = num[i];
+        int n = m + 1;
+        while (i < num.length) {
+            if (num[i] > num[m] && num[i] < min) {
+                min = num[i];
+                n = i;
+            }
+            i++;
+        }
+        return n;
+    }
+
+    public void exchange(int[] num, int m, int n) {
+        int t = num[n];
+        num[n] = num[m];
+        num[m] = t;
     }
 
     public static void main(String[] args) {
