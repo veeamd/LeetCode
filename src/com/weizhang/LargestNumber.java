@@ -13,8 +13,10 @@ package com.weizhang;
 public class LargestNumber {
     public String largestNumber(int[] num) {
         // convert to strings
-        // 3-way string quick sort.
-        // concatenate the strings.
+        // 3-way string quick sort the first letter, then in each group use custome comparator to sort
+        // then concatenate all the numbers.
+
+
         if (num.length == 0) return "0";
 
         String[] numStrings = convertToString(num);

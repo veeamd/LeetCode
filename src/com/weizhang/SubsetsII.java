@@ -6,33 +6,30 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * Created by Wei Zhang on 4/25/15.
+ * Created by Wei Zhang on 5/10/15.
  *
- * Given a set of distinct integers, S, return all possible subsets.
+ * Given a collection of integers that might contain duplicates, nums, return all possible subsets.
 
  Note:
  Elements in a subset must be in non-descending order.
  The solution set must not contain duplicate subsets.
  For example,
- If S = [1,2,3], a solution is:
+ If nums = [1,2,2], a solution is:
 
  [
-    [3],
-    [1],
-    [2],
-    [1,2,3],
-    [1,3],
-    [2,3],
-    [1,2],
-    []
+   [2],
+   [1],
+   [1,2,2],
+   [2,2],
+   [1,2],
+   []
  ]
  *
  */
-
-public class Subsets {
+public class SubsetsII {
     private int[] S;
     private List<List<Integer>> subsets;
-    public List<List<Integer>> subsets(int[] S) {
+    public List<List<Integer>> subsetsWithDup(int[] S) {
         subsets = new ArrayList<List<Integer>>();
         Stack<Integer> stack = new Stack<Integer>();
         this.S = S;
@@ -43,9 +40,11 @@ public class Subsets {
     private void dfs(Stack<Integer> stack, int begin) {
         saveStackAsSubset(stack);
         for (int i = begin; i < S.length; i++) {
-            stack.push(S[i]);
-            dfs(stack, i + 1);
-            stack.pop();
+            if (i == begin || S[i] != S[i-1]) {
+                stack.push(S[i]);
+                dfs(stack, i + 1);
+                stack.pop();
+            }
         }
     }
 
@@ -55,9 +54,9 @@ public class Subsets {
     }
 
     public static void main(String[] args) {
-        Subsets test = new Subsets();
-        int[] S = {1, 2, 3, 4, 5, 6, 7};
-        for (List<Integer> subset : test.subsets(S))
+        SubsetsII test = new SubsetsII();
+        int[] S = {1, 2, 3, 3, 5, 5, 7};
+        for (List<Integer> subset : test.subsetsWithDup(S))
             System.out.println(subset);
     }
 }
