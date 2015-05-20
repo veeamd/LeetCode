@@ -32,6 +32,7 @@ public class SubsetsII {
     public List<List<Integer>> subsetsWithDup(int[] S) {
         subsets = new ArrayList<List<Integer>>();
         Stack<Integer> stack = new Stack<Integer>();
+        Arrays.sort(S);
         this.S = S;
         dfs(stack, 0);
         return subsets;
