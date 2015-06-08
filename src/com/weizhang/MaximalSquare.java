@@ -24,6 +24,7 @@ public class MaximalSquare {
         int rowCount = matrix.length;
         int columnCount = matrix[0].length;
 
+        // initialize auxiliary 2D array
         int[][] A = new int[rowCount][columnCount];
         for (int r = 0; r < rowCount; r++) {
             for (int c = 0; c < columnCount; c++) {
@@ -31,25 +32,35 @@ public class MaximalSquare {
             }
         }
 
-        for (int r = 0; r < rowCount; r++) {
-            for (int c = 0; c < columnCount; c++) {
-                int a_1_1 = 0, a_0_1 = 0, a_1_0 = 0;
-                if (r - 1 >= 0 && c - 1 >= 0) {
-                    a_1_1 = A[r - 1][c - 1];
+        // initialize edge
+        for (int c = 0; c < columnCount; c++) {
+            if (A[0][c] == 1) {
+                edge = 1;
+                break;
+            }
+        }
+        if (edge == 0) {
+            for (int r = 0; r < rowCount; r++) {
+                if (A[r][0] == 1) {
+                    edge = 1;
+                    break;
                 }
-                if (r - 1 >= 0) {
-                    a_0_1 = A[r - 1][c];
-                }
-                if (c - 1 >= 0) {
-                    a_1_0 = A[r][c - 1];
-                }
+            }
+        }
+
+        // start with row 1 and column 1
+        for (int r = 1; r < rowCount; r++) {
+            for (int c = 1; c < columnCount; c++) {
+                int a_1_1 = A[r - 1][c - 1];
+                int a_0_1 = A[r - 1][c];
+                int a_1_0 = A[r][c - 1];
                 if (a_1_1 >= 1 && A[r][c] == 1) {
                     A[r][c] = Math.min(a_1_1, Math.min(a_0_1, a_1_0)) + 1;
                 }
                 edge = Math.max(edge, A[r][c]);
             }
         }
-        return (int)Math.pow(edge, 2);
+        return edge * edge;
     }
 
     public static void main(String[] args) {
@@ -119,9 +130,14 @@ public class MaximalSquare {
                 {'1'}
         };
 
+        char[][] matrix4 = {
+                {'0'}
+        };
+
         test.maximalSquare(matrix1);
         test.maximalSquare(matrix2);
         test.maximalSquare(matrix3);
+        test.maximalSquare(matrix4);
 
     }
 }
